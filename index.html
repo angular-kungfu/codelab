@@ -1,11 +1,47 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title></title>
-		<link rel="stylesheet" type="text/css" href="./lib/bootstrap/css/bootstrap.css">
-	</head>
-	<body>
-		
-		<script type="text/javascript" src="lib/angular/angular.js"></script>
-	</body>
+<html ng-app="movies">
+<head>
+	<title>Movies</title>
+	<link rel="stylesheet" type="text/css" href="./lib/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="./css/app.css">
+</head>
+<body ng-controller="MoviesController">
+	<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+	  	<div class="container">
+	    	<div class="navbar-header"></div>
+	    	<a class="navbar-brand" href="#">{{ movies.length }} Latest Movies</a>
+	  	</div>
+	</nav>
+
+	<div class="container">
+		<div class="row padding padding-bottom">
+			<div class="col-md-8 col-md-offset-2">
+				<input type="text" class="form-control" placeholder="Search ... " ng-model="searchKey">
+			</div>
+		</div>
+
+		<div class="row hover-me" ng-repeat="movie in movies | filter: searchKey">
+
+			<div class="col-md-2">
+				<a href="{{ movie.trailer }}" class="thumbnail">
+					<img data-src="holder.js/100%x180" alt="100%x180" src="{{ movie.images.poster }}" >
+				</a>
+			</div>
+
+			<div class="col-md-8">
+				<h4>{{ movie.title | uppercase }}</h4>
+				<p class="text-justify">{{ movie.overview }}</p>
+				<blockquote>
+					<span ng-repeat="genre in movie.genres">{{ genre }} . </span>
+					 <footer>{{ movie.tagline }}</footer>
+				</blockquote>
+			</div>
+
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src="./lib/angular/angular.js"></script>
+	<script type="text/javascript" src="./js/app.js"></script>
+</body>
 </html>
